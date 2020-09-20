@@ -73,7 +73,7 @@ export class LiveCharts extends React.Component {
   optionsLine() {
     return {
       legend: {
-        display: false
+        display: true
       },
       scales: {
         xAxes: [{
@@ -153,13 +153,15 @@ export class LiveCharts extends React.Component {
             //labels: ["X", "M", "T", "W", "X", "F", "S"],
             datasets: [
               {
-                label: "Update " + newlineupdates,
+                label: "myTotalEth ("+newlineupdates+")",
+                fill: false,
                 data: helpers.getDatasetFromRows(data,"timestamp","myTotalEth", 0.001),
                 yAxisID: 'y-axis-myTotalEth'
               },
               {
-                label: "Update " + newlineupdates,
-                data: helpers.getDatasetFromRows(data,"timestamp","totalEth",10),
+                label: "totalEth ("+newlineupdates+")",
+                fill: false,
+                data: helpers.getDatasetFromRows(data,"timestamp","totalEth",5),
                 yAxisID: 'y-axis-totalEth'
               }
              /* {
@@ -185,14 +187,14 @@ export class LiveCharts extends React.Component {
           <div className="card shadow">
             <div className="card-body text-center">
               <h4 className="mb-4">
-                Line Chart
+                myGanghi Chart
                 <button
                   className="btn btn-sm btn-outline-primary align-top ml-2"
                   onClick={() =>
                     this.updateLiveData("lineData")
                   }
                 >
-                  {<span>Update</span>}
+                  {<span>Update {this.state.lineupdates}</span>}
                 </button>
               </h4>
               <Line
