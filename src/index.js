@@ -9,21 +9,11 @@ function App() {
   return (
     <div>
       <HeaderHtml />
-      <div className="container py-3">
+      <div className="container-fluid py-3">
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <a
               className="nav-link active"
-              href={{ void: 0 }}
-              data-toggle="tab"
-              data-target="#tabCharts"
-            >
-              Charts
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
               href={{ void: 0 }}
               data-toggle="tab"
               data-target="#tabLiveCharts"
@@ -31,12 +21,22 @@ function App() {
               Live Charts
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href={{ void: 0 }}
+              data-toggle="tab"
+              data-target="#tabCharts"
+            >
+              Charts
+            </a>
+          </li>
         </ul>
         <div className="tab-content">
-          <div className="tab-pane active" id="tabCharts">
+          <div className="tab-pane" id="tabCharts">
             <Charts />
           </div>
-          <div className="tab-pane" id="tabLiveCharts">
+          <div className="tab-pane active" id="tabLiveCharts">
             <LiveCharts />
           </div>
         </div>
