@@ -1,7 +1,5 @@
 import React from "react";
 import dataLineChart from "../data/linechart.json";
-//import dataBarChart from "../data/barchart.json";
-//import dataBubbleChart from "../data/bubblechart.json";
 import { defaults, Line} from "react-chartjs-2";
 import helpers from "../helpers";
 
@@ -61,8 +59,8 @@ export class LiveCharts extends React.Component {
     this.state = {
       lineData: this.mergeColorsIntoData(dataLineChart),
       lineupdates: 0,
-     // barData: this.mergeColorsIntoData(dataBarChart),
-     // bubbleData: this.mergeColorsIntoData(dataBubbleChart),
+      myTotalEth_sens: 0.001,
+      totalEth_sens: 5
     };
 
     /* for live data */
@@ -144,7 +142,7 @@ export class LiveCharts extends React.Component {
       _self.state[dataName].datasets.length > 0
     ) {
       let newlineupdates = _self.state.lineupdates + 1;
-    fetch('http://192.168.0.5:7070/getdata')
+    fetch(window.location.protocol + '//' +window.location.host.replace(/:.*/,"") + ':7070/getdata')
         .then(res => res.json())
         .then((data) => {
           var newData = {};
@@ -155,13 +153,13 @@ export class LiveCharts extends React.Component {
               {
                 label: "myTotalEth ("+newlineupdates+")",
                 fill: false,
-                data: helpers.getDatasetFromRows(data,"timestamp","myTotalEth", 0.001),
+                data: helpers.getDatasetFromRows(data,"timestamp","myTotalEth", this.state.myTotalEth_sens),
                 yAxisID: 'y-axis-myTotalEth'
               },
               {
                 label: "totalEth ("+newlineupdates+")",
                 fill: false,
-                data: helpers.getDatasetFromRows(data,"timestamp","totalEth",5),
+                data: helpers.getDatasetFromRows(data,"timestamp","totalEth",this.state.totalEth_sens),
                 yAxisID: 'y-axis-totalEth'
               }
              /* {
@@ -196,6 +194,8 @@ export class LiveCharts extends React.Component {
                 >
                   {<span>Update {this.state.lineupdates}</span>}
                 </button>
+                <input name="myTotalEth_sens" value={this.state.myTotalEth_sens} onChange={(v)=> this.setState({myTotalEth_sens: v.target.value})} />
+                <input name="totalEth_sens" value={this.state.totalEth_sens} onChange={(v)=> this.setState({totalEth_sens: v.target.value})} />
               </h4>
               <Line
                 ref="chart1"
